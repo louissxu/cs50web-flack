@@ -1,0 +1,37 @@
+{% extends "layout.html.jinja2" %}
+ 
+{% block title %}
+Flack
+{% endblock %}
+
+{% block body %}
+<h1>Flack</h1> 
+<hr>
+<h4>Display Name: {{display_name}}</h4>
+<form>
+    <label for="display_name">Change display name</label>
+    <input type="text" id="display_name" name="display_name" placeholder="New display name">
+    <input type="submit" value="Submit">
+</form>
+<hr>
+<h4>Channels</h4>
+{% for channel in channels %}
+    <ul>{{channel}}</ul>
+{% endfor %}
+<form action="/channel/" method="POST">
+    <label for="new_channel">Create new channel</label>
+    <input type="text" id="new_channel" name="new_channel" placeholder="Channel name">
+    <input type="submit" value="Submit">
+</form>
+<hr>
+<h4>Messages</h4>
+<h5>Current Channel: {{channel_name}}
+<ul>Message 1</ul>
+<ul>Message 2</ul>
+<ul>Message 3</ul>
+<form>
+    <label for="new_message">New Message</label>
+    <input type="text" id="new_message" name="new_message" placeholder="Message">
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}
