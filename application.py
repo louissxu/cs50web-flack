@@ -54,7 +54,7 @@ def channel():
             flash("Channel name is too short. Please try again")
             return redirect(url_for("index"))
 
-        # Passes above back end validity checks  Improvement: need to also do client side same checks
+        # Passes above back-end validity checks  Improvement: need to also do the same checks client-side
         channels.append(new_channel)
 
         return redirect(url_for("channel_page", channel_name=new_channel))
