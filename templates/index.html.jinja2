@@ -4,13 +4,17 @@
 Flack
 {% endblock %}
 
+{% block head %}
+<script src="static/index.js"></script>
+{% endblock %}
+
 {% block body %}
 <h1>Flack</h1> 
 <hr>
-<h4>Display Name: {{display_name}}</h4>
-<form>
-    <label for="display_name">Change display name</label>
-    <input type="text" id="display_name" name="display_name" placeholder="New display name">
+<h4>Display Name: <a id="display_name"></a></h4>
+<form id="change_display_name">
+    <label for="new_display_name">Change display name</label>
+    <input type="text" id="new_display_name" name="new_display_name" placeholder="New display name">
     <input type="submit" value="Submit">
 </form>
 <hr>
