@@ -5,7 +5,8 @@ Flack
 {% endblock %}
 
 {% block head %}
-<script src="static/index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha256-bQmrZe4yPnQrLTY+1gYylfNMBuGfnT/HKsCGX+9Xuqo=" crossorigin="anonymous"></script>
+<script src="/static/index.js"></script>
 {% endblock %}
 
 {% block body %}
@@ -19,9 +20,11 @@ Flack
 </form>
 <hr>
 <h4>Channels</h4>
+<ul>
 {% for channel in channels %}
-    <ul>{{channel}}</ul>
+    <li><a href={{channel[1]}}>{{channel[0]}}</a></li>
 {% endfor %}
+</ul>
 <form action="/channel/" method="POST">
     <label for="new_channel">Create new channel</label>
     <input type="text" id="new_channel" name="new_channel" placeholder="Channel name">
@@ -29,11 +32,10 @@ Flack
 </form>
 <hr>
 <h4>Messages</h4>
-<h5>Current Channel: {{channel_name}}
-<ul>Message 1</ul>
-<ul>Message 2</ul>
-<ul>Message 3</ul>
-<form>
+<h5>Current Channel: {{channel_name}}</h5>
+<ul id="messages">
+</ul>
+<form id="submit_new_message">
     <label for="new_message">New Message</label>
     <input type="text" id="new_message" name="new_message" placeholder="Message">
     <input type="submit" value="Submit">

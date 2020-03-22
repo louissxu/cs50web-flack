@@ -1,4 +1,5 @@
 import os
+import requests
 
 from flask import Flask
 from flask_socketio import SocketIO, emit
@@ -6,18 +7,20 @@ from flask_socketio import SocketIO, emit
 from flask import render_template, request, flash, redirect, url_for
 
 import string
+import datetime
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 socketio = SocketIO(app)
-
 
 channels = ["random_channel", "fun_stuff", "channel_for_bananas"]
 allowed_channel_characters = string.ascii_letters + string.digits + "_-"
 
 @app.route("/")
 def index():
-    return render_template("index.html.jinja2", channels=channels)
+    channels_urls=[url_for("channel_page", channel_name=channel) for channel in channels]
+    channels_data = list(zip(channels, channels_urls))
+    return render_template("index.html.jinja2", channels=channels_data)
 
 
 @app.route("/channel/<channel_name>/", methods=["GET"])
@@ -29,7 +32,10 @@ def channel_page(channel_name):
         if channel_name not in channels:
             flash(f"Channel '{channel_name}' does not exist. Please create channel first")
             return redirect(url_for("index"))
-        return render_template("index.html.jinja2", channels=channels, channel_name=channel_name)
+
+        channels_urls=[url_for("channel_page", channel_name=channel) for channel in channels]
+        channels_data = list(zip(channels, channels_urls))
+        return render_template("index.html.jinja2", channels=channels_data, channel_name=channel_name)
 
 @app.route("/channel/", methods=["POST"])
 def channel():
@@ -58,3 +64,11 @@ def channel():
         channels.append(new_channel)
 
         return redirect(url_for("channel_page", channel_name=new_channel))
+
+@socketio.on("submit message")
+def message(data):
+    message = data["message"]
+    username = data["username"]
+    now = datetime.datetime.now()
+    timestamp = now.strftime("%Y-%m-%d %H:%M:%S")
+    emit("announce message", {"message": message, "username": username, "timestamp": timestamp}, broadcast=True)
