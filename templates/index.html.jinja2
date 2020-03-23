@@ -22,7 +22,7 @@ Flack
 <h4>Channels</h4>
 <ul>
 {% for channel in channels %}
-    <li><a href={{channel[1]}}>{{channel[0]}}</a></li>
+    <li><a href={{channel["url"]}}>{{channel["name"]}}</a></li>
 {% endfor %}
 </ul>
 <form action="/channel/" method="POST">

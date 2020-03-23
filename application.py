@@ -13,14 +13,21 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 socketio = SocketIO(app)
 
-channels = ["random_channel", "fun_stuff", "channel_for_bananas"]
 allowed_channel_characters = string.ascii_letters + string.digits + "_-"
+
+class Channel():
+    def __init__(self, name):
+        self.name = name
+    def __eq__(self, other):
+        return self.name == other.name
+
+channels = [Channel("random_channel"), Channel("fun_stuff"), Channel("channel_for_bananas")]
 
 @app.route("/")
 def index():
     channels_urls=[url_for("channel_page", channel_name=channel) for channel in channels]
     channels_data = list(zip(channels, channels_urls))
-    return render_template("index.html.jinja2", channels=channels_data)
+    return render_template("index.html.jinja2", channels=[{"name": channel.name, "url": url_for("channel_page", channel_name=channel.name)} for channel in channels])
 
 
 @app.route("/channel/<channel_name>/", methods=["GET"])
@@ -29,13 +36,11 @@ def channel_page(channel_name):
 
     # Render channel page if GET
     if request.method == "GET":
-        if channel_name not in channels:
+        if Channel(channel_name) not in channels:
             flash(f"Channel '{channel_name}' does not exist. Please create channel first")
             return redirect(url_for("index"))
 
-        channels_urls=[url_for("channel_page", channel_name=channel) for channel in channels]
-        channels_data = list(zip(channels, channels_urls))
-        return render_template("index.html.jinja2", channels=channels_data, channel_name=channel_name)
+        return render_template("index.html.jinja2", channels=[{"name": channel.name, "url": url_for("channel_page", channel_name=channel.name)} for channel in channels], channel_name=channel_name)
 
 @app.route("/channel/", methods=["POST"])
 def channel():
@@ -52,7 +57,7 @@ def channel():
                 flash(f"Invalid character in channel name. Please try again")
                 return redirect(url_for("index"))
 
-        if new_channel in channels:
+        if Channel(new_channel) in channels:
             flash(f"Channel '{new_channel}' already exists. Redirecting you there")
             return redirect(url_for("channel_page", channel_name=new_channel))
  
@@ -61,7 +66,7 @@ def channel():
             return redirect(url_for("index"))
 
         # Passes above back-end validity checks  Improvement: need to also do the same checks client-side
-        channels.append(new_channel)
+        channels.append(Channel(new_channel))
 
         return redirect(url_for("channel_page", channel_name=new_channel))
 
