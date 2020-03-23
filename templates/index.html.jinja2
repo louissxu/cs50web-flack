@@ -32,8 +32,11 @@ Flack
 </form>
 <hr>
 <h4>Messages</h4>
-<h5>Current Channel: {{channel_name}}</h5>
+<h5>Current Channel: <a id="channel_name">{{channel_name}}</a></h5>
 <ul id="messages">
+    {% for message in channel_messages %}
+    <li>{{message.timestamp}} - {{message.username}}: {{message.message}}</li>
+    {% endfor %}
 </ul>
 <form id="submit_new_message">
     <label for="new_message">New Message</label>

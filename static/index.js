@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     
+    // Hack - Pull variable name from html content
+    const channel_name = document.querySelector("#channel_name").innerHTML
+
     // Sets display name. Pulls from local storage if saved previously
     var display_name = null;
     if (localStorage.getItem("display_name") != null) {
@@ -26,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Submit button should emit a "submit message" event
         document.querySelector("#submit_new_message").onsubmit = () => {
             const new_message = document.querySelector("#new_message").value;
-            socket.emit("submit message", {"message": new_message, "username": display_name});
+            socket.emit("submit message", {"message": new_message, "username": display_name, "channel": channel_name});
             
             return false;
         };
@@ -34,10 +37,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // When a new message is announced, add it to the unordered list
     socket.on("announce message", data => {
-        const li = document.createElement("li");
-        test = `${data.message}`;
-        li.innerHTML = `${data.timestamp} - ${data.username}: ${data.message}`;
-        document.querySelector("#messages").append(li);
+        if (data.channel == channel_name){
+            const li = document.createElement("li");
+            test = `${data.message}`;
+            li.innerHTML = `${data.timestamp} - ${data.username}: ${data.message}`;
+            document.querySelector("#messages").append(li);
+        }
     });
 
 })

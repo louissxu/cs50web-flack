@@ -15,18 +15,41 @@ socketio = SocketIO(app)
 
 allowed_channel_characters = string.ascii_letters + string.digits + "_-"
 
+# Improvements
+# Make socket.io broadcast to only that channel rather than all and client side filter out irrelevant channels
+
 class Channel():
     def __init__(self, name):
         self.name = name
+        self.messages = []
     def __eq__(self, other):
         return self.name == other.name
+    def add_message(self, username, message, timestamp=None):
+        self.messages.append(Message(username,message,timestamp))
+        while len(self.messages) > 100:
+            self.messages.pop(0)
+    def previous_messages(self):
+        return [{"timestamp": message.timestamp, "username": message.username, "message": message.message} for message in self.messages]
 
-channels = [Channel("random_channel"), Channel("fun_stuff"), Channel("channel_for_bananas")]
+channels = [
+    Channel("random_channel"),
+    Channel("fun_stuff"),
+    Channel("channel_for_bananas")
+]
+
+class Message():
+    def __init__(self, username, message, timestamp=None):
+        if not timestamp:
+            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.timestamp = timestamp
+        self.message = message
+        self.username = username
+    def __str__(self):
+        pass
+
 
 @app.route("/")
 def index():
-    channels_urls=[url_for("channel_page", channel_name=channel) for channel in channels]
-    channels_data = list(zip(channels, channels_urls))
     return render_template("index.html.jinja2", channels=[{"name": channel.name, "url": url_for("channel_page", channel_name=channel.name)} for channel in channels])
 
 
@@ -39,8 +62,10 @@ def channel_page(channel_name):
         if Channel(channel_name) not in channels:
             flash(f"Channel '{channel_name}' does not exist. Please create channel first")
             return redirect(url_for("index"))
-
-        return render_template("index.html.jinja2", channels=[{"name": channel.name, "url": url_for("channel_page", channel_name=channel.name)} for channel in channels], channel_name=channel_name)
+        channels_data = [{"name": channel.name, "url": url_for("channel_page", channel_name=channel.name)} for channel in channels]
+        for c in (d for d in channels if d.name == channel_name):
+            channel_messages = c.previous_messages()
+        return render_template("index.html.jinja2", channels=channels_data, channel_name=channel_name, channel_messages=channel_messages)
 
 @app.route("/channel/", methods=["POST"])
 def channel():
@@ -74,6 +99,9 @@ def channel():
 def message(data):
     message = data["message"]
     username = data["username"]
+    channel = data["channel"]
+    for c in (d for d in channels if d.name == channel):
+        c.add_message(username, message)
     now = datetime.datetime.now()
     timestamp = now.strftime("%Y-%m-%d %H:%M:%S")
-    emit("announce message", {"message": message, "username": username, "timestamp": timestamp}, broadcast=True)
+    emit("announce message", {"message": message, "username": username, "timestamp": timestamp, "channel": channel}, broadcast=True)
