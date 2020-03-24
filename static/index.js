@@ -1,7 +1,38 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // Hack - Pull variable name from html content
-    const channel_name = document.querySelector("#channel_name").innerHTML
+    // Ref: https://stackoverflow.com/questions/6168260/how-to-parse-a-url
+    // Ref: https://stackoverflow.com/questions/3213531/creating-a-new-location-object-in-javascript/3213643#3213643
+    var url = window.location.href;
+    var url_parser = document.createElement("a")
+    url_parser.href = url
+    var url_pathname = url_parser.pathname
+
+    if (url_pathname == "/"){
+        previous_channel = localStorage.getItem("channel_name");
+        if (previous_channel != null) {
+            // Redirect to relative address. Ref: https://www.geeksforgeeks.org/how-to-redirect-to-a-relative-url-in-javascript/
+            window.location.href = "/channel/" + previous_channel;
+
+            // // Have to do it this way rather than url.hostname because this uses nonstandard port
+            // var initial_url_arr = window.location.href.split("/")
+            // var initial_url = initial_url_arr[0] + "//" + initial_url_arr[2]
+            // alert(initial_url + "/channel/" + previous_channel);       
+        }
+    }
+    else {
+        var url_path_array = url_pathname.split("/");
+        
+        if (url_path_array[1] == "channel"){
+            // Pull channel_name from url path then set it to local storage
+            const channel_name = url_path_array[2]
+            localStorage.setItem("channel_name", channel_name);
+
+            // // Hack - Pull variable name from html content
+            // const channel_name = document.querySelector("#channel_name").innerHTML
+        }
+    }
+
+
 
     // Sets display name. Pulls from local storage if saved previously
     var display_name = null;
