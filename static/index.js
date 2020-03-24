@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (url_pathname == "/"){
         // Check for flashes and blank out old channel redirect if there are any flashes (ie stay on index page)
-        var flashes = document.querySelector(".flashes");
+        var flashes = document.querySelector(".alert");
         if (flashes != null) {
             localStorage.removeItem("channel_name")
         }

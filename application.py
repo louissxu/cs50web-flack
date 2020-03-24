@@ -60,7 +60,7 @@ def channel_page(channel_name):
     # Render channel page if GET
     if request.method == "GET":
         if Channel(channel_name) not in channels:
-            flash(f"Channel '{channel_name}' does not exist. Please create channel first")
+            flash(f"Channel '{channel_name}' does not exist. Please create channel first", "primary")
             return redirect(url_for("index"))
         channels_data = [{"name": channel.name, "url": url_for("channel_page", channel_name=channel.name)} for channel in channels]
         for c in (d for d in channels if d.name == channel_name):
@@ -79,15 +79,15 @@ def channel():
 
         for c in new_channel:
             if c not in allowed_channel_characters:
-                flash(f"Invalid character in channel name. Please try again")
+                flash(f"Invalid character in channel name. Please try again", "primary")
                 return redirect(url_for("index"))
 
         if Channel(new_channel) in channels:
-            flash(f"Channel '{new_channel}' already exists. Redirecting you there")
+            flash(f"Channel '{new_channel}' already exists. Redirecting you there", "info")
             return redirect(url_for("channel_page", channel_name=new_channel))
  
         if len(new_channel) < 4:
-            flash("Channel name is too short. Please try again")
+            flash("Channel name is too short. Please try again", "primary")
             return redirect(url_for("index"))
 
         # Passes above back-end validity checks  Improvement: need to also do the same checks client-side
