@@ -8,6 +8,12 @@ document.addEventListener("DOMContentLoaded", () => {
     var url_pathname = url_parser.pathname
 
     if (url_pathname == "/"){
+        // Check for flashes and blank out old channel redirect if there are any flashes (ie stay on index page)
+        var flashes = document.querySelector(".flashes");
+        if (flashes != null) {
+            localStorage.removeItem("channel_name")
+        }
+
         previous_channel = localStorage.getItem("channel_name");
         if (previous_channel != null) {
             // Redirect to relative address. Ref: https://www.geeksforgeeks.org/how-to-redirect-to-a-relative-url-in-javascript/
