@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
     url_parser.href = url
     var url_pathname = url_parser.pathname
 
+    var channel_name;
+
     if (url_pathname == "/"){
         // Check for flashes and blank out old channel redirect if there are any flashes (ie stay on index page)
         var flashes = document.querySelector(".alert");
@@ -30,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         if (url_path_array[1] == "channel"){
             // Pull channel_name from url path then set it to local storage
-            const channel_name = url_path_array[2]
+            channel_name = url_path_array[2]
             localStorage.setItem("channel_name", channel_name);
 
             // // Hack - Pull variable name from html content
@@ -38,13 +40,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-
-
     // Sets display name. Pulls from local storage if saved previously
     var display_name = null;
     if (localStorage.getItem("display_name") != null) {
         display_name = localStorage.getItem("display_name");
         document.querySelector("#display_name").innerHTML = display_name;
+        document.getElementById("new_display_name").placeholder = "change display name"
+    }
+    else {
+        document.querySelector("#display_name").innerHTML = "Display Name";
     }
 
     // Handles change display name form
