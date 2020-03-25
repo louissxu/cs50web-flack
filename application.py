@@ -65,7 +65,8 @@ def channel_page(channel_name):
         channels_data = [{"name": channel.name, "url": url_for("channel_page", channel_name=channel.name)} for channel in channels]
         for c in (d for d in channels if d.name == channel_name):
             channel_messages = c.previous_messages()
-        return render_template("index.html.jinja2", channels=channels_data, channel_name=channel_name, channel_messages=channel_messages)
+        return render_template("index.html.jinja2", channels=[{"name": channel.name, "url": url_for("channel_page", channel_name=channel.name)} for channel in channels], channel_messages=channel_messages)
+        # return render_template("index.html.jinja2", channels=channels_data, channel_name=channel_name, channel_messages=channel_messages)
 
 @app.route("/channel/", methods=["POST"])
 def channel():

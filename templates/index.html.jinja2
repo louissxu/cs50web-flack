@@ -7,7 +7,30 @@ Flack
 {% block head %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha256-bQmrZe4yPnQrLTY+1gYylfNMBuGfnT/HKsCGX+9Xuqo=" crossorigin="anonymous"></script>
 <script src="/static/index.js"></script>
+
+<!-- Fontawesome icons -->
+<script src="https://kit.fontawesome.com/5eaa8e915c.js" crossorigin="anonymous"></script>
 {% endblock %}
+
+{% block sidebar %}
+    <hr>
+    <h4>Channels</h4>
+    <ul id="channel_list">
+    {% for channel in channels %}
+        <li><a href={{channel["url"]}}>{{channel["name"]}}</a></li>
+    {% endfor %}
+        <form action="/channel/" method="POST" class="form-inline">
+            <div class="input-group">
+                <label id="new_channel_label" for="new_channel"></label>
+                <input type="text" class="form-control border-0 pl-1 py-0" id="new_channel" name="new_channel" placeholder="create new channel">
+                <div class="input-group-append">
+                    <button class="btn btn-link" type="submit"><i class="far fa-plus-square"></i></button>
+                </div>
+            </div>
+        </form>
+    </ul>
+{% endblock %}
+
 
 {% block body %}
 <h1>Flack</h1> 
@@ -18,18 +41,7 @@ Flack
     <input type="text" id="new_display_name" name="new_display_name" placeholder="New display name">
     <input type="submit" value="Submit">
 </form>
-<hr>
-<h4>Channels</h4>
-<ul>
-{% for channel in channels %}
-    <li><a href={{channel["url"]}}>{{channel["name"]}}</a></li>
-{% endfor %}
-</ul>
-<form action="/channel/" method="POST">
-    <label for="new_channel">Create new channel</label>
-    <input type="text" id="new_channel" name="new_channel" placeholder="Channel name">
-    <input type="submit" value="Submit">
-</form>
+
 <hr>
 <h4>Messages</h4>
 <h5>Current Channel: <a id="channel_name">{{channel_name}}</a></h5>
