@@ -12,10 +12,10 @@ Flack
 {% block sidebar %}
     <hr>
     <h6><strong id="display_name"></strong></h6>
-    <form id="change_display_name" class="form-inline">
+    <form id="change_display_name" class="form-inline needs-validation" novalidate>
         <div class="input-group">
             <label for="new_display_name"></label>
-            <input type="text" class="form-control border-bottom-only m-0 pl-1" id="new_display_name" name="new_display_name" placeholder="<display name>" autocomplete="off">
+            <input type="text" class="form-control border-bottom-only m-0 pl-1" id="new_display_name" name="new_display_name" placeholder="<display name>" autocomplete="off" required>
             <div class="input-group-append">
                 <button class="btn btn-link" type="submit" id="change_display_name_submit">
                     {# <span class="fa-stack">
@@ -24,6 +24,12 @@ Flack
                     </span> #}
                     empty
                 </button>
+            </div>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Not valid. Please provide a display name.
             </div>
         </div>
     </form>
