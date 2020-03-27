@@ -34,18 +34,7 @@
         <div id="container">
             <!-- Flashes -->
             <div id="flashes">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <div class="alert alert-{{category}} mb-0" role="alert">
-                                {{message}}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
+                <!-- Moved to flashes new -->
             </div>
 
             <div id="subcontainer">
@@ -88,5 +77,19 @@
             </div>
         </div>
 
+        <div id="flashes_new">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{category}} m-2" role="alert">
+                            {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
     </body>
 </html>

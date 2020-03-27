@@ -9,6 +9,12 @@
     /* height: 70px; */
 }
 
+#flashes_new{
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
 #subcontainer {
     display: flex;
     flex-direction: row;
@@ -36,7 +42,7 @@
 }
 
 #middle_container {
-    height: calc(100vh - 50px - 60px - 70px - 200px);
+    height: calc(100vh - 50px - 60px);
     /* top height, bottom height, flashes height. probably remove top height and let top flex grow to size as buffer */
     vertical-align: bottom;
     /* overflow-y: auto; */
