@@ -1,125 +1,66 @@
 #container {
     display: flex;
     flex-direction: column;
-    border: 3px solid red;
     height: 100vh;
-    width: 100%;
 }
 
 #flashes {
-    border: 3px solid green;
     width: 100%;
-    height: 70px;
+    /* height: 70px; */
 }
 
 #subcontainer {
-    border: 3px solid blue;
-    flex-grow: 1;
-    flex-shrink: 1;
-
     display: flex;
     flex-direction: row;
 }
 
 #sidebar {
     width: 250px;
-    border: 3px solid purple;
+    padding: 10px;
 }
 
 #content {
     flex-grow: 1;
-    border: 3px solid yellow;
-
     display: flex;
     flex-direction: column;
+    height: 100vh;
 }
 
 #top {
-    border: 3px solid teal;
     height: 50px;
-    flex: 1 1 auto;
+    /* flex: 1 1 auto; */
+
+    padding: 10px;
+    border-bottom: 1px solid lightgrey;
+    background: white;
 }
 
 #middle_container {
-    border: 3px solid orange;
-    height: calc(100vh - 50px - 50px - 70px);
+    height: calc(100vh - 50px - 60px - 70px - 200px);
+    /* top height, bottom height, flashes height. probably remove top height and let top flex grow to size as buffer */
     vertical-align: bottom;
     /* overflow-y: auto; */
 
     display: flex;
+
+    flex-grow: 1;
 }
 
 #middle {
-    border: 3px solid blue;
     align-self: flex-end;
     max-height: 100%;
-    width: 100%;
+    width: calc(100vw - 250px);
     overflow-y: auto;
 }
 
 #bottom {
-    border: 3px solid cyan;
-    height: 50px;
-}
+    /* height: 50px; */
+    height: 60px;
 
-/* #top {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    position: -webkit-sticky;
-    top: 0;
-    width: 100%;
-    height: 100vh;
-}
-
-#below_flashes {
-    display: flex;
-    flex-direction: row;
-}
-
-#sidebar {
-    width: 250px;
-    padding: 10px;
-    height: 100%;
-}
-
-#channel_title {
-    padding: 10px;
-    width: calc(100% - 250px);
-    width: 100%;
-    border-bottom: 1px solid lightgrey;
-    background: white;
-    border: 3px solid red;
-}
-
-#content {
-    width: calc(100% - 250px);
-    height: 100%;
-    border: 3px solid purple;
-    display: flex;
-    flex-direction: column;
-}
-
-#middle {
-    border: 3px solid green;
-    height: 100%;
-}
-
-#middle_content {
-    overflow-y: auto;
-    border: 3px solid pink;
-}
-
-#bottom {
-    position: absolute;
-    left: 250px;
-    bottom: 0;
-    width: 100%;
     padding: 10px;
     border-top: 1px solid lightgrey;
     background: white;
-    border: 3px solid blue;
-} */
+}
 
 #channel_list {
     list-style: none;

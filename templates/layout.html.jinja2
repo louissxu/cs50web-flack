@@ -32,41 +32,6 @@
 
     <body>
         <div id="container">
-            <div id="flashes">
-                flashes
-            </div>
-
-            <div id="subcontainer">
-                <div id="sidebar">
-                    sidebar
-                </div>
-                <div id="content">
-                    <div id="top">a</div>
-                    <div id="middle_container">
-                        <div id="middle">
-                            blah<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>test
-                        </div>                        
-                    </div>
-                    <div id="bottom">c</div>
-                </div>
-                {# <div id="content">
-                    content
-                    <div id="top">a
-                    </div>
-                    <div id="middle">
-                        <div id="middle_subcontainer">
-                        test
-                        </div>
-                    </div>
-                    <div id="bottom">c
-                    </div>
-                </div> #}
-            </div>
-        </div>
-
-
-{# 
-        <div id="top">
             <!-- Flashes -->
             <div id="flashes">
                 {% with messages = get_flashed_messages(with_categories=true) %}
@@ -83,7 +48,7 @@
                 {% endwith %}
             </div>
 
-            <div id="below_flashes">
+            <div id="subcontainer">
                 <!-- Sidebar -->
                 <div id="sidebar">
                     <nav>
@@ -99,19 +64,18 @@
 
                 <div id="content">
                     <!-- Top content -->
-                    <div id="channel_title">
+                    <div id="top">
                         {% block top %}
                         {% endblock %}
                     </div>
 
-                    <!-- Middle -->
-                    <div id="middle">
-                        <div id="middle_content">
+                    <div id="middle_container">
+                        <!-- Middle content -->
+                        <div id="middle">
+                            <br>
                             {% block body %}
                             {% endblock %}
-                            <br>
-                            <br>
-                        </div>
+                        </div>                        
                     </div>
 
                     <!-- Bottom content -->
@@ -119,10 +83,10 @@
                         {% block bottom %}
                         {% endblock %}
                     </div>
+
                 </div>
             </div>
-
-        </div> #}
+        </div>
 
     </body>
 </html>
