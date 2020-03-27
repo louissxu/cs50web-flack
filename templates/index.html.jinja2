@@ -43,10 +43,10 @@ Flack
         <li><a href={{channel["url"]}}># {{channel["name"]}}</a></li>
         {% endif %}
     {% endfor %}
-        <form action="/channel/" method="POST" class="form-inline mt-2">
+        <form action="/channel/" method="POST" class="form-inline mt-2 needs-validation" novalidate>
             <div class="input-group">
                 <label id="new_channel_label" for="new_channel"></label>
-                <input type="text" class="form-control border-bottom-only m-0 pl-1" id="new_channel" name="new_channel" placeholder="<new channel>" autocomplete="off">
+                <input type="text" class="form-control border-bottom-only m-0 pl-1" id="new_channel" name="new_channel" placeholder="<new channel>" autocomplete="off" required>
                 <div class="input-group-append">
                     <button class="btn btn-link" type="submit">
                         create
@@ -55,6 +55,12 @@ Flack
                             <i class="fas fa-plus fa-stack-1x"></i>
                         </span> #}
                     </button>
+                </div>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Not valid. Cannot create a channel without a name.
                 </div>
             </div>
         </form>

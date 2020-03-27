@@ -15,6 +15,18 @@ socketio = SocketIO(app)
 
 allowed_channel_characters = string.ascii_letters + string.digits + "_-"
 
+# TODO
+# early formatting of messages
+# autoscroll
+# random display name colour
+# random accent colour
+# client side vaidation on/off
+# verify server side validation matches client side
+# index page overlay
+# clean code
+# refactor classes
+# host on heroku
+
 # Improvements
 # Make socket.io broadcast to only that channel rather than all and client side filter out irrelevant channels
 # Add client side validation of display name, channel name, message
@@ -91,17 +103,29 @@ def channel():
         new_channel = new_channel.lower()
         new_channel = new_channel.replace(" ", "_")
 
-        for c in new_channel:
-            if c not in allowed_channel_characters:
-                flash(f"Invalid character in channel name. Please try again", "primary")
-                return redirect(url_for("index"))
-
         if Channel(new_channel) in channels:
-            flash(f"Channel '{new_channel}' already exists. Redirecting you there", "info")
+            flash(f"Channel '{new_channel}' already exists. Redirecting you there.", "info")
             return redirect(url_for("channel_page", channel_name=new_channel))
  
         if len(new_channel) < 4:
-            flash("Channel name is too short. Please try again", "primary")
+            flash("Channel name is too short. Please try again.", "primary")
+            return redirect(url_for("index"))
+
+        if len(new_channel) > 16:
+            flash("Channel name is too long. Please try again.", "primary")
+            return redirect(url_for("index"))
+
+        for c in new_channel:
+            if c not in allowed_channel_characters:
+                flash(f"Invalid character in channel name. Please try again.", "primary")
+                return redirect(url_for("index"))
+
+        if c[0] in " -_":
+            flash("Invalid first character. Channel name must start with letter or number.", "primary")
+            return redirect(url_for("index"))
+
+        if c[-1] in " -_":
+            flash("Invalid last character. Channel name must end with letter or number.", "primary")
             return redirect(url_for("index"))
 
         # Passes above back-end validity checks  Improvement: need to also do the same checks client-side

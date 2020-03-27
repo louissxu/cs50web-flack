@@ -89,53 +89,45 @@ document.addEventListener("DOMContentLoaded", () => {
                 event.stopPropagation();
                 form.classList.add("was-validated");
             } else {
-                display_name = document.querySelector("#new_display_name").value;
-                localStorage.setItem("display_name", display_name);
-
-                document.querySelector("#display_name").innerHTML = display_name;
-                document.querySelector("#new_display_name").value = "";
-
-                document.getElementById("change_display_name_submit").innerHTML = "change";
-                document.getElementById("new_display_name").placeholder = "<change name>"
-                
                 form.classList.remove("was-validated");
-                
-                event.preventDefault();
             }
         }, false);
     });
 
-        // // Handles change display name form
-    // document.querySelector("#change_display_name").onsubmit = () => {
-    //     display_name = document.querySelector("#new_display_name").value;
-    //     localStorage.setItem("display_name", display_name);
-
-    //     document.querySelector("#display_name").innerHTML = display_name;
-    //     document.querySelector("#new_display_name").value = "";
-
-    //     
+    // Handles change display name form
+    document.querySelector("#change_display_name").onsubmit = () => {
+        if (document.getElementById("change_display_name").checkValidity()) {
+            display_name = document.querySelector("#new_display_name").value;
+            localStorage.setItem("display_name", display_name);
         
-    //     return false;
-    // };
+            document.querySelector("#display_name").innerHTML = display_name;
+            document.querySelector("#new_display_name").value = "";
+        
+            document.getElementById("change_display_name_submit").innerHTML = "change";
+            document.getElementById("new_display_name").placeholder = "<change name>";
+            return false;
+        }
+    }
+
 
     function checkCustomValidity() {
         var input_field = this;
         var if_value = input_field.value
-        // var valid_letters = "/^[abcde]+$/";
-        var invalid_start = /^[ _-]/;
+
         var valid_letters = /^[a-zA-Z0-9 _-]+$/;
+        var invalid_start = /^[ _-]/;
         var invalid_end = /[ _-]$/;
+
         if (if_value.length > 16) {
             input_field.setCustomValidity("Too long. Can't be longer than 16 characters.");
         } else if (if_value.length < 4) {
             input_field.setCustomValidity("Too short. Needs to be at least 4 characters.");          
-        } else if (invalid_start.test(if_value)) {
-            input_field.setCustomValidity("Invalid start character. First character must be letter or number.");
-        // } else if (dn_value.match(valid_letters)) {
         } else if (!valid_letters.test(if_value)) {
             input_field.setCustomValidity("Invalid character. Display name must be alphanumeric.");
+        } else if (invalid_start.test(if_value)) {
+            input_field.setCustomValidity("Invalid start character. First character must be letter or number.");
         } else if (invalid_end.test(if_value)) {
-            input_field.setCustomValidity("Invalid end character. Last character must be letter or number.")
+            input_field.setCustomValidity("Invalid end character. Last character must be letter or number.");
         } else {
             input_field.setCustomValidity("");
         }
@@ -143,7 +135,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // document.getElementById("dn_invalid_feedback").innerHTML = input_field.validationMessage;
         return;
     }
-
+    
     document.getElementById("new_display_name").oninput = checkCustomValidity;
-
+    document.getElementById("new_channel").oninput = checkCustomValidity;
+    
 })
