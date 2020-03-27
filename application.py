@@ -71,9 +71,6 @@ def channel_page(channel_name):
             channel_messages = c.previous_messages()
             if c.pruned == True:
                 messages_pruned = True
-        flash("test flash", "info")
-        flash("test flash 2", "info")
-        flash("test flash 3", "warning")
         return render_template("index.html.jinja2", channels=[{"name": channel.name, "url": url_for("channel_page", channel_name=channel.name)} for channel in channels], channel_name=channel_name, channel_messages=channel_messages, messages_pruned=messages_pruned)
         # return render_template("index.html.jinja2", channels=channels_data, channel_name=channel_name, channel_messages=channel_messages)
 

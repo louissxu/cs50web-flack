@@ -23,6 +23,8 @@
 #sidebar {
     width: 250px;
     padding: 10px;
+    background: lightgrey;
+    color: darkblue;
 }
 
 #content {
@@ -45,7 +47,6 @@
     height: calc(100vh - 50px - 60px);
     /* top height, bottom height, flashes height. probably remove top height and let top flex grow to size as buffer */
     vertical-align: bottom;
-    /* overflow-y: auto; */
 
     display: flex;
 
@@ -82,9 +83,40 @@
     border-top: 0px;
     border-left: 0px;
     border-right: 0px;
+    background: none;
+    border-bottom: 0px solid darkblue;
 }
 
 .form-control:focus {
-    /* border-color: #ff80ff; */
     box-shadow: 0px 0px 0px lightgray inset;
+    background: none;
+    border-bottom: 1px solid darkblue;
+    color: darkblue;
+}
+
+hr {
+    background-color: grey;
+    height: 0px;
+}
+
+a {
+    color: grey;
+}
+
+a:hover {
+    /* color: #606060; */
+    color: darkblue;
+}
+
+.btn-link {
+    color: grey;
+}
+
+.btn-link:hover {
+    /* color: #606060; */
+    color: darkblue;
+}
+
+.accent_colour {
+    color: darkblue;
 }

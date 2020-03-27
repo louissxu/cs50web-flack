@@ -47,10 +47,12 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#display_name").innerHTML = display_name;
         // document.getElementById("new_display_name").placeholder = "change display name"
         document.getElementById("change_display_name_submit").innerHTML = "change"
+        document.getElementById("new_display_name").placeholder = "<change name>"
     }
     else {
-        document.querySelector("#display_name").innerHTML = "Display Name";
+        document.querySelector("#display_name").innerHTML = "&ltdisplay name&gt";
         document.getElementById("change_display_name_submit").innerHTML = "set"
+        document.getElementById("new_display_name").placeholder = "<set name>"
     }
 
     // Handles change display name form
@@ -60,6 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.querySelector("#display_name").innerHTML = display_name;
         document.querySelector("#new_display_name").value = "";
+
+        document.getElementById("change_display_name_submit").innerHTML = "change";
+        document.getElementById("new_display_name").placeholder = "<change name>"
         
         return false;
     };
