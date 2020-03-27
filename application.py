@@ -17,17 +17,20 @@ allowed_channel_characters = string.ascii_letters + string.digits + "_-"
 
 # Improvements
 # Make socket.io broadcast to only that channel rather than all and client side filter out irrelevant channels
+# Add client side validation of display name, channel name, message
 
 class Channel():
     def __init__(self, name):
         self.name = name
         self.messages = []
+        self.pruned = False;
     def __eq__(self, other):
         return self.name == other.name
     def add_message(self, username, message, timestamp=None):
         self.messages.append(Message(username,message,timestamp))
         while len(self.messages) > 100:
             self.messages.pop(0)
+            self.pruned = True;
     def previous_messages(self):
         return [{"timestamp": message.timestamp, "username": message.username, "message": message.message} for message in self.messages]
 
@@ -63,9 +66,15 @@ def channel_page(channel_name):
             flash(f"Channel '{channel_name}' does not exist. Please create channel first", "primary")
             return redirect(url_for("index"))
         channels_data = [{"name": channel.name, "url": url_for("channel_page", channel_name=channel.name)} for channel in channels]
+        messages_pruned = False
         for c in (d for d in channels if d.name == channel_name):
             channel_messages = c.previous_messages()
-        return render_template("index.html.jinja2", channels=[{"name": channel.name, "url": url_for("channel_page", channel_name=channel.name)} for channel in channels], channel_name=channel_name, channel_messages=channel_messages)
+            if c.pruned == True:
+                messages_pruned = True
+        flash("test flash", "info")
+        flash("test flash 2", "info")
+        flash("test flash 3", "warning")
+        return render_template("index.html.jinja2", channels=[{"name": channel.name, "url": url_for("channel_page", channel_name=channel.name)} for channel in channels], channel_name=channel_name, channel_messages=channel_messages, messages_pruned=messages_pruned)
         # return render_template("index.html.jinja2", channels=channels_data, channel_name=channel_name, channel_messages=channel_messages)
 
 @app.route("/channel/", methods=["GET", "POST"])
@@ -105,9 +114,14 @@ def channel():
 
 @socketio.on("submit message")
 def message(data):
-    message = data["message"]
-    username = data["username"]
-    channel = data["channel"]
+
+    message = data.get("message",None)
+    username = data.get("username", None)
+    channel = data.get("channel", None)
+
+    if not message or not username or not channel:
+        return
+
     for c in (d for d in channels if d.name == channel):
         c.add_message(username, message)
     now = datetime.datetime.now()

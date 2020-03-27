@@ -45,10 +45,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (localStorage.getItem("display_name") != null) {
         display_name = localStorage.getItem("display_name");
         document.querySelector("#display_name").innerHTML = display_name;
-        document.getElementById("new_display_name").placeholder = "change display name"
+        // document.getElementById("new_display_name").placeholder = "change display name"
+        document.getElementById("change_display_name_submit").innerHTML = "change"
     }
     else {
         document.querySelector("#display_name").innerHTML = "Display Name";
+        document.getElementById("change_display_name_submit").innerHTML = "set"
     }
 
     // Handles change display name form

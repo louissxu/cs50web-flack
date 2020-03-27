@@ -11,17 +11,18 @@ Flack
 
 {% block sidebar %}
     <hr>
-    <h5 id="display_name"></h5>
+    <h6><strong id="display_name"></strong></h6>
     <form id="change_display_name" class="form-inline">
         <div class="input-group">
             <label for="new_display_name"></label>
-            <input type="text" class="form-control border-0 m-0 pl-1" id="new_display_name" name="new_display_name" placeholder="set display name" autocomplete="off">
+            <input type="text" class="form-control border-bottom-only m-0 pl-1" id="new_display_name" name="new_display_name" placeholder="<display name>" autocomplete="off">
             <div class="input-group-append">
-                <button class="btn btn-link" type="submit">
-                    <span class="fa-stack">
+                <button class="btn btn-link" type="submit" id="change_display_name_submit">
+                    {# <span class="fa-stack">
                         <i class="far fa-circle fa-stack-2x"></i>
                         <i class="fas fa-check fa-stack-1x"></i>
-                    </span>
+                    </span> #}
+                    empty
                 </button>
             </div>
         </div>
@@ -38,14 +39,15 @@ Flack
     {% endfor %}
         <form action="/channel/" method="POST" class="form-inline">
             <div class="input-group">
-                <label id="new_channel_label" for="new_channel"># </label>
-                <input type="text" class="form-control border-0 pl-1" id="new_channel" name="new_channel" placeholder="create new channel" autocomplete="off">
+                <label id="new_channel_label" for="new_channel"></label>
+                <input type="text" class="form-control border-bottom-only m-0 pl-1" id="new_channel" name="new_channel" placeholder="<new channel>" autocomplete="off">
                 <div class="input-group-append">
                     <button class="btn btn-link" type="submit">
-                        <span class="fa-stack">
+                        create
+                        {# <span class="fa-stack">
                             <i class="far fa-circle fa-stack-2x"></i>
                             <i class="fas fa-plus fa-stack-1x"></i>
-                        </span>
+                        </span> #}
                     </button>
                 </div>
             </div>
@@ -53,18 +55,34 @@ Flack
     </ul>
 {% endblock %}
 
+{% block top %}
+    {% if channel_name %}
+        <h5 id="channel_name"><strong># {{channel_name}}</strong></h5>
+    {% endif %}
+    
+{% endblock %}
 
 {% block body %}
-<h5 id="channel_name"><strong># {{channel_name}}</strong></h5>
-<hr>
-<ul id="messages">
-    {% for message in channel_messages %}
-    <li>{{message.timestamp}} - {{message.username}}: {{message.message}}</li>
-    {% endfor %}
-</ul>
-<form id="submit_new_message">
-    <label for="new_message">New Message</label>
-    <input type="text" id="new_message" name="new_message" placeholder="Message">
-    <input type="submit" value="Submit">
-</form>
+    <ul id="messages">
+        {% if messages_pruned %}
+            <li class="text-muted font-italic">More than 100 old messages. Earlier messages have been pruned.</li>
+        {% endif %}
+        {% for message in channel_messages %}
+            <li>{{message.timestamp}} - {{message.username}}: {{message.message}}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block bottom %}
+    <form id="submit_new_message" class="input-group">
+        <div class="input-group">
+            <label for="new_message"></label>
+            <input type="text" class="form-control border-bottom-only m0 pl-1" id="new_message" name="new_message" placeholder="Message #{{channel_name}}" autocomplete="off">
+            <div class="input-group-append">
+                <button class="btn btn-link" type="submit">
+                    post
+                </button>
+            </div>
+        </div>
+    </form>
 {% endblock %}

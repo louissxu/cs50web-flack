@@ -31,13 +31,48 @@
     </head>
 
     <body>
-        <header>
+        <div id="container">
+            <div id="flashes">
+                flashes
+            </div>
+
+            <div id="subcontainer">
+                <div id="sidebar">
+                    sidebar
+                </div>
+                <div id="content">
+                    <div id="top">a</div>
+                    <div id="middle_container">
+                        <div id="middle">
+                            blah<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>b<br>test
+                        </div>                        
+                    </div>
+                    <div id="bottom">c</div>
+                </div>
+                {# <div id="content">
+                    content
+                    <div id="top">a
+                    </div>
+                    <div id="middle">
+                        <div id="middle_subcontainer">
+                        test
+                        </div>
+                    </div>
+                    <div id="bottom">c
+                    </div>
+                </div> #}
+            </div>
+        </div>
+
+
+{# 
+        <div id="top">
             <!-- Flashes -->
             <div id="flashes">
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
                         {% for category, message in messages %}
-                            <div class="alert alert-{{category}}" role="alert">
+                            <div class="alert alert-{{category}} mb-0" role="alert">
                                 {{message}}
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -47,32 +82,47 @@
                     {% endif %}
                 {% endwith %}
             </div>
-        </header>
 
-        <div class = "wrapper">
-            <!-- Sidebar -->
-            <nav id="sidebar">
-                <div class="sidebar-header">
-                    <h3><i class="fas fa-meteor"></i> Flack</h3>
-                    <h6 class="pl-1 text-muted">Definitely not a clone of slack</h6>
+            <div id="below_flashes">
+                <!-- Sidebar -->
+                <div id="sidebar">
+                    <nav>
+                        <div class="sidebar-header">
+                            <h3><i class="fas fa-meteor"></i> Flack</h3>
+                            <h6 class="pl-1 text-muted">Definitely not a clone of Slack</h6>
+                        </div>
+
+                        {% block sidebar %}
+                        {% endblock %}
+                    </nav>
                 </div>
 
-                {% block sidebar %}
-                {% endblock %}
-            </nav>
+                <div id="content">
+                    <!-- Top content -->
+                    <div id="channel_title">
+                        {% block top %}
+                        {% endblock %}
+                    </div>
 
+                    <!-- Middle -->
+                    <div id="middle">
+                        <div id="middle_content">
+                            {% block body %}
+                            {% endblock %}
+                            <br>
+                            <br>
+                        </div>
+                    </div>
 
-            <!-- Page Content -->
-            <div id="content">
-                <main>
-                    {% block body %}
-                    {% endblock %}
-                </main>
+                    <!-- Bottom content -->
+                    <div id="bottom">
+                        {% block bottom %}
+                        {% endblock %}
+                    </div>
+                </div>
             </div>
-        </div>
 
-
-
+        </div> #}
 
     </body>
 </html>
