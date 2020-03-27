@@ -55,20 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("new_display_name").placeholder = "<set name>"
     }
 
-    // Handles change display name form
-    document.querySelector("#change_display_name").onsubmit = () => {
-        display_name = document.querySelector("#new_display_name").value;
-        localStorage.setItem("display_name", display_name);
-
-        document.querySelector("#display_name").innerHTML = display_name;
-        document.querySelector("#new_display_name").value = "";
-
-        document.getElementById("change_display_name_submit").innerHTML = "change";
-        document.getElementById("new_display_name").placeholder = "<change name>"
-        
-        return false;
-    };
-
     // Connect to websocket
     var socket = io.connect(location.protocol + "//" + document.domain + ":" + location.port);
 
@@ -92,5 +78,72 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelector("#messages").append(li);
         }
     });
+
+    // Form validation
+    var forms = document.getElementsByClassName("needs-validation");
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener("submit", () => {
+            if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+                form.classList.add("was-validated");
+            } else {
+                display_name = document.querySelector("#new_display_name").value;
+                localStorage.setItem("display_name", display_name);
+
+                document.querySelector("#display_name").innerHTML = display_name;
+                document.querySelector("#new_display_name").value = "";
+
+                document.getElementById("change_display_name_submit").innerHTML = "change";
+                document.getElementById("new_display_name").placeholder = "<change name>"
+                
+                form.classList.remove("was-validated");
+                
+                event.preventDefault();
+            }
+        }, false);
+    });
+
+        // // Handles change display name form
+    // document.querySelector("#change_display_name").onsubmit = () => {
+    //     display_name = document.querySelector("#new_display_name").value;
+    //     localStorage.setItem("display_name", display_name);
+
+    //     document.querySelector("#display_name").innerHTML = display_name;
+    //     document.querySelector("#new_display_name").value = "";
+
+    //     
+        
+    //     return false;
+    // };
+
+    function checkCustomValidity() {
+        var input_field = this;
+        var if_value = input_field.value
+        // var valid_letters = "/^[abcde]+$/";
+        var invalid_start = /^[ _-]/;
+        var valid_letters = /^[a-zA-Z0-9 _-]+$/;
+        var invalid_end = /[ _-]$/;
+        if (if_value.length > 16) {
+            input_field.setCustomValidity("Too long. Can't be longer than 16 characters.");
+        } else if (if_value.length < 4) {
+            input_field.setCustomValidity("Too short. Needs to be at least 4 characters.");          
+        } else if (invalid_start.test(if_value)) {
+            input_field.setCustomValidity("Invalid start character. First character must be letter or number.");
+        // } else if (dn_value.match(valid_letters)) {
+        } else if (!valid_letters.test(if_value)) {
+            input_field.setCustomValidity("Invalid character. Display name must be alphanumeric.");
+        } else if (invalid_end.test(if_value)) {
+            input_field.setCustomValidity("Invalid end character. Last character must be letter or number.")
+        } else {
+            input_field.setCustomValidity("");
+        }
+        this.parentElement.getElementsByClassName("invalid-feedback")[0].innerHTML = input_field.validationMessage;
+        // document.getElementById("dn_invalid_feedback").innerHTML = input_field.validationMessage;
+        return;
+    }
+
+    document.getElementById("new_display_name").oninput = checkCustomValidity;
 
 })
