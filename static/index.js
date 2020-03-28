@@ -1,3 +1,6 @@
+// Declare template for message line
+const template = Handlebars.compile(document.querySelector("#message_template").innerHTML);
+
 document.addEventListener("DOMContentLoaded", () => {
     
     // Ref: https://stackoverflow.com/questions/6168260/how-to-parse-a-url
@@ -63,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Submit button should emit a "submit message" event
         document.querySelector("#submit_new_message").onsubmit = () => {
             const new_message = document.querySelector("#new_message").value;
+            document.querySelector("#new_message").value = "";
             socket.emit("submit message", {"message": new_message, "username": display_name, "channel": channel_name});
             
             return false;
@@ -72,9 +76,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // When a new message is announced, add it to the unordered list
     socket.on("announce message", data => {
         if (data.channel == channel_name){
+            const colour = calculateColour(data.username);
+            const content = template({"timestamp": data.timestamp, "username": data.username, "message_text": data.message, "colour": colour});
             const li = document.createElement("li");
-            test = `${data.message}`;
-            li.innerHTML = `${data.timestamp} - ${data.username}: ${data.message}`;
+            li.innerHTML = content;
             document.querySelector("#messages").append(li);
         }
     });
@@ -139,4 +144,33 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("new_display_name").oninput = checkCustomValidity;
     document.getElementById("new_channel").oninput = checkCustomValidity;
     
+
+    // List old messages
+    for (const data of old_messages) {
+        const colour = calculateColour(data.username);
+            const content = template({"timestamp": data.timestamp, "username": data.username, "message_text": data.message, "colour": colour});
+            const li = document.createElement("li");
+            li.innerHTML = content;
+            document.querySelector("#messages").append(li);
+    }
 })
+
+// Ref: https://stackoverflow.com/questions/11120840/hash-string-into-rgb-color
+function djb2(str){
+    var hash = 5381;
+    for (var i = 0; i < str.length; i++) {
+      hash = ((hash << 5) + hash) + str.charCodeAt(i); /* hash * 33 + c */
+    }
+    return Math.abs(hash);
+  }
+
+//const colours = ["#E27D60", "#85CDCA", "#E8A87C", "#C38D9E", "#41B3A3"];
+
+// Fontawesome colours: pink, orange, green, cyan, blue, purple
+const colours = ["#f783ac", "#fd7d14", "#82c91e", "#15abbf", "#4c6ef5", "#be4bdb"]
+
+function calculateColour(str){
+    const hash = djb2(str);
+    const index = hash % colours.length;
+    return colours[index];
+};

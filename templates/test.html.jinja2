@@ -1,0 +1,32 @@
+{% extends "layout.html.jinja2" %}
+ 
+{% block title %}
+Flack
+{% endblock %}
+
+{% block head %}
+<!-- Handlebars JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+<script id="result" type="text/x-handlebars-template" src="/static/message_template.js"></script>
+<script id="result" type="text/x-handlebars-template">
+{% raw -%}
+    <li>You rolled pie: {{ value }}</li>
+{%- endraw %}
+</script>
+<script src="/static/test.js"></script>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
+
+{% block top %}
+{% endblock %}
+
+{% block body %}
+    <button id="roll">Roll</button>
+    <ul id="rolls">
+    </ul>
+{% endblock %}
+
+{% block bottom %}
+{% endblock %}

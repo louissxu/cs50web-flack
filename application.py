@@ -16,14 +16,14 @@ socketio = SocketIO(app)
 allowed_channel_characters = string.ascii_letters + string.digits + "_-"
 
 # TODO
-# early formatting of messages
 # autoscroll
-# random display name colour
 # random accent colour
 # client side vaidation on/off
 # verify server side validation matches client side
 # index page overlay
 # clean code
+# more formatting of messages
+# validation of messages. (mostly non-zero)
 # refactor classes
 # host on heroku
 
@@ -148,3 +148,7 @@ def message(data):
     now = datetime.datetime.now()
     timestamp = now.strftime("%Y-%m-%d %H:%M:%S")
     emit("announce message", {"message": message, "username": username, "timestamp": timestamp, "channel": channel}, broadcast=True)
+
+# @app.route("/test/")
+# def test():
+#     return render_template("test.html.jinja2")

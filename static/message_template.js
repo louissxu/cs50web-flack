@@ -1,0 +1,1 @@
+<li>You rolled pie2: {{ value }}</li>
