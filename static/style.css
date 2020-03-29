@@ -133,6 +133,25 @@ a:hover {
     border: 3px solid red;
 }
 
+
 #messages {
     list-style: none;
 }
+
+/* Autoscroll */
+/* Ref: https://stackoverflow.com/questions/18614301/keep-overflow-div-scrolled-to-bottom-unless-user-scrolls-up/60546366#60546366 */
+/* #middle {
+    scroll-snap-type: y proximity;
+    scroll-snap-align: end;
+    padding-bottom: 10px;
+}
+
+#messages {
+    scroll-snap-align: end;
+    padding-bottom: 10px;
+}
+
+#messages > li:last-child {
+    scroll-snap-align: end;
+    padding-bottom: 10px;
+} */

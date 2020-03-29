@@ -26,6 +26,7 @@ allowed_channel_characters = string.ascii_letters + string.digits + "_-"
 # validation of messages. (mostly non-zero)
 # refactor classes
 # host on heroku
+# change timeout time?
 
 # Improvements
 # Make socket.io broadcast to only that channel rather than all and client side filter out irrelevant channels

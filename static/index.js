@@ -76,11 +76,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // When a new message is announced, add it to the unordered list
     socket.on("announce message", data => {
         if (data.channel == channel_name){
-            const colour = calculateColour(data.username);
-            const content = template({"timestamp": data.timestamp, "username": data.username, "message_text": data.message, "colour": colour});
-            const li = document.createElement("li");
-            li.innerHTML = content;
-            document.querySelector("#messages").append(li);
+            displayMessage(data);
+            scroll();
         }
     });
 
@@ -146,13 +143,19 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
     // List old messages
-    for (const data of old_messages) {
-        const colour = calculateColour(data.username);
-            const content = template({"timestamp": data.timestamp, "username": data.username, "message_text": data.message, "colour": colour});
-            const li = document.createElement("li");
-            li.innerHTML = content;
-            document.querySelector("#messages").append(li);
+    for (const message of old_messages) {
+        displayMessage(message);
     }
+
+    scroll()
+
+    // document.getElementById("middle").onscroll = () => {
+    //     console.log("blerp");
+    //     onScroll();
+    // }
+
+
+    document.getElementById("middle").onscroll = onScroll;
 })
 
 // Ref: https://stackoverflow.com/questions/11120840/hash-string-into-rgb-color
@@ -174,3 +177,34 @@ function calculateColour(str){
     const index = hash % colours.length;
     return colours[index];
 };
+
+function displayMessage(data) {
+    const colour = calculateColour(data.username);
+    const content = template({"timestamp": data.timestamp, "username": data.username, "message_text": data.message, "colour": colour});
+    const li = document.createElement("li");
+    li.innerHTML = content;
+    document.querySelector("#messages").append(li);
+}
+
+
+// Stay scrolled to bottom
+// Ref: https://stackoverflow.com/questions/270612/scroll-to-bottom-of-div?rq=1
+var scrolled = true;
+
+function scroll() {
+    if (scrolled) {
+        var middle = document.getElementById("middle");
+        middle.scrollTop = middle.scrollHeight;
+    } else {
+        console.log("you have more messages")
+    }
+}
+
+function onScroll() {
+    var middle = document.getElementById("middle");
+    if ((middle.scrollTop + middle.clientHeight) >= middle.scrollHeight - 15) {
+        scrolled = true;
+    } else {
+        scrolled = false;
+    }
+}
