@@ -155,3 +155,36 @@ a:hover {
     scroll-snap-align: end;
     padding-bottom: 10px;
 } */
+
+/* Popover styling */
+.popover {
+    background: transparent;
+    border: transparent;
+}
+
+.popover .arrow {
+    visibility: hidden;
+}
+
+.popover-header {
+    background: whitesmoke;
+    border: 1px solid grey;
+    border-radius: 0;
+    color: grey;
+    
+    /* Make not selectable */
+    /* Ref. https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.popover-body {
+    visibility: hidden;
+}
+
+#more_messages_popover {
+    width: 100%;
+}

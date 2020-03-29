@@ -148,6 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
         displayMessage(message);
     }
 
+    document.getElementById("middle").onscroll = onScroll;
     scroll()
 
     // document.getElementById("middle").onscroll = () => {
@@ -155,8 +156,19 @@ document.addEventListener("DOMContentLoaded", () => {
     //     onScroll();
     // }
 
+    // $(document).ready(function(){
+    //     $('[data-toggle="popover"]').popover();   
+    // });
 
-    document.getElementById("middle").onscroll = onScroll;
+    // $(function () {
+    //     $('[data-toggle="popover"]').popover()
+    //         html:true
+    // })
+
+    // $('.popover-dismiss').popover({
+    //     trigger: 'focus'
+    // })
+    
 })
 
 // Ref: https://stackoverflow.com/questions/11120840/hash-string-into-rgb-color
@@ -211,6 +223,22 @@ function scroll() {
         middle.scrollTop = middle.scrollHeight;
     } else {
         console.log("you have more messages")
+        $("#more_messages_popover").popover('show')
+        // Hide popup when click anywhere else
+        // Ref. https://stackoverflow.com/questions/11703093/how-to-dismiss-a-twitter-bootstrap-popover-by-clicking-outside
+        $("html").on("mouseup", function (e) {
+            var l = $(e.target);
+            if (l[0].className.indexOf("popover") == -1) {
+                $(".popover").each(function () {
+                    $(this).popover("hide");
+                });
+            }
+        });
+        document.querySelector(".popover-header").onclick = () => {
+            scrolled = true;
+            scroll();
+            $("#more_messages_popover").popover('hide')
+        }
     }
 }
 

@@ -107,6 +107,9 @@ Flack
 {% endblock %}
 
 {% block bottom %}
+    {# <div data-toggle="popover" data-trigger="focus" title="popover <br />title" data-content="popover <br />content" data-placement="top" data-html="true"> #}
+    {# <div data-toggle="popover" data-trigger="focus" title="New messages below." data-content="" data-placement="top"> #}
+    <div id="more_messages_popover" title="New messages below." data-content="" data-placement="top"></div>
     <form id="submit_new_message" class="input-group">
         <div class="input-group">
             <label for="new_message"></label>
