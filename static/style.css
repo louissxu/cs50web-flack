@@ -168,7 +168,7 @@ a:hover {
 
 .popover-header {
     background: whitesmoke;
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
     border-radius: 0;
     color: grey;
     
@@ -187,4 +187,8 @@ a:hover {
 
 #more_messages_popover {
     width: 100%;
+}
+
+.text-muted-light {
+    color: #D0D0D0;
 }

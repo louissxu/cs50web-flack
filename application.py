@@ -16,7 +16,6 @@ socketio = SocketIO(app)
 allowed_channel_characters = string.ascii_letters + string.digits + "_-"
 
 # TODO
-# autoscroll
 # random accent colour
 # client side vaidation on/off
 # verify server side validation matches client side

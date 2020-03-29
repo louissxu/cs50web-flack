@@ -246,6 +246,7 @@ function onScroll() {
     var middle = document.getElementById("middle");
     if ((middle.scrollTop + middle.clientHeight) >= middle.scrollHeight - 15) {
         scrolled = true;
+        $("#more_messages_popover").popover('hide')
     } else {
         scrolled = false;
     }

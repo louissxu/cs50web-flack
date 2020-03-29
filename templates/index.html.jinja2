@@ -7,7 +7,7 @@ Flack
 {% block head %}
 <script id="message_template" type="text/x-handlebars-template">
     {% raw -%}
-        <li><a class="text-muted">{{ time }}</a> <font color={{ colour }}> {{ username }}</font>: {{ message_text }}</li>
+        <li><font class="text-muted-light">{{ time }}</font> <font color={{ colour }}> {{ username }}</font>: {{ message_text }}</li>
     {%- endraw %}
 </script>
 
