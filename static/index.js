@@ -1,5 +1,6 @@
 // Declare template for message line
-const template = Handlebars.compile(document.querySelector("#message_template").innerHTML);
+const message_line = Handlebars.compile(document.querySelector("#message_template").innerHTML);
+const date_line = Handlebars.compile(document.querySelector("#date_template").innerHTML);
 
 document.addEventListener("DOMContentLoaded", () => {
     
@@ -178,12 +179,25 @@ function calculateColour(str){
     return colours[index];
 };
 
+var latest_date = null;
+
 function displayMessage(data) {
+    // const date = data.timestamp.slice(0,10)
+    const date = data.date
+    if (date != latest_date){
+        const date_content = date_line({"date": date})
+        const date_li = document.createElement("li");
+        date_li.innerHTML = date_content;
+        document.querySelector("#messages").append(date_li);
+
+        latest_date = date;
+    }
+    
     const colour = calculateColour(data.username);
-    const content = template({"timestamp": data.timestamp, "username": data.username, "message_text": data.message, "colour": colour});
-    const li = document.createElement("li");
-    li.innerHTML = content;
-    document.querySelector("#messages").append(li);
+    const message_content = message_line({"time": data.time, "username": data.username, "message_text": data.message, "colour": colour});
+    const message_li = document.createElement("li");
+    message_li.innerHTML = message_content;
+    document.querySelector("#messages").append(message_li);
 }
 
 

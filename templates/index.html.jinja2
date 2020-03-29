@@ -7,9 +7,16 @@ Flack
 {% block head %}
 <script id="message_template" type="text/x-handlebars-template">
     {% raw -%}
-        <li><a class="text-muted">{{ timestamp }}</a> <font color={{ colour }}> {{ username }}</font>: {{ message_text }}</li>
+        <li><a class="text-muted">{{ time }}</a> <font color={{ colour }}> {{ username }}</font>: {{ message_text }}</li>
     {%- endraw %}
 </script>
+
+<script id="date_template" type=text/x-handlebars-template">
+    {% raw -%}
+        <li><a class="text-muted">---- {{ date }} ----</a></li>
+    {%- endraw %}
+</script>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha256-bQmrZe4yPnQrLTY+1gYylfNMBuGfnT/HKsCGX+9Xuqo=" crossorigin="anonymous"></script>
 <script>var old_messages = {{channel_messages}}</script>

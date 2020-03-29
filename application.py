@@ -39,13 +39,13 @@ class Channel():
         self.pruned = False;
     def __eq__(self, other):
         return self.name == other.name
-    def add_message(self, username, message, timestamp=None):
-        self.messages.append(Message(username,message,timestamp))
+    def add_message(self, username, message, date=None, time=None):
+        self.messages.append(Message(username,message,date,time))
         while len(self.messages) > 100:
             self.messages.pop(0)
             self.pruned = True;
     def previous_messages(self):
-        return [{"timestamp": message.timestamp, "username": message.username, "message": message.message} for message in self.messages]
+        return [{"date": message.date, "time": message.time, "username": message.username, "message": message.message} for message in self.messages]
 
 channels = [
     Channel("random_channel"),
@@ -54,10 +54,13 @@ channels = [
 ]
 
 class Message():
-    def __init__(self, username, message, timestamp=None):
-        if not timestamp:
-            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        self.timestamp = timestamp
+    def __init__(self, username, message, date=None, time=None):
+        if any([not date, not time]):
+            now = datetime.datetime.now()
+            date = now.strftime("%Y-%m-%d")
+            time = now.strftime("%H:%M:%S")
+        self.date = date
+        self.time = time
         self.message = message
         self.username = username
     def __str__(self):
@@ -144,11 +147,15 @@ def message(data):
     if not message or not username or not channel:
         return
 
+    # FIX THIS SERVER SIDE SANITISATION
+
     for c in (d for d in channels if d.name == channel):
         c.add_message(username, message)
     now = datetime.datetime.now()
-    timestamp = now.strftime("%Y-%m-%d %H:%M:%S")
-    emit("announce message", {"message": message, "username": username, "timestamp": timestamp, "channel": channel}, broadcast=True)
+    date = now.strftime("%Y-%m-%d")
+    time = now.strftime("%H:%M:%S")
+
+    emit("announce message", {"message": message, "username": username, "date": date, "time": time, "channel": channel}, broadcast=True)
 
 # @app.route("/test/")
 # def test():
