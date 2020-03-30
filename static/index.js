@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#display_name").innerHTML = "&ltdisplay name&gt";
         document.getElementById("change_display_name_submit").innerHTML = "set"
         document.getElementById("new_display_name").placeholder = "<set name>"
+        document.getElementById("overlay1").style.visibility = "visible"
     }
 
     // Connect to websocket
@@ -109,6 +110,13 @@ document.addEventListener("DOMContentLoaded", () => {
         
             document.getElementById("change_display_name_submit").innerHTML = "change";
             document.getElementById("new_display_name").placeholder = "<change name>";
+
+            // Get rid of startup overlay if present
+            if (document.getElementById("overlay1").style.visibility == "visible") {
+                document.getElementById("overlay1").style.visibility = "hidden"
+            }
+            
+
             return false;
         }
     }
@@ -169,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // $('.popover-dismiss').popover({
     //     trigger: 'focus'
     // })
-    
+
 })
 
 // Ref: https://stackoverflow.com/questions/11120840/hash-string-into-rgb-color
