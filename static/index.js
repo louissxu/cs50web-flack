@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         if (url_path_array[1] == "channel"){
             // Pull channel_name from url path then set it to local storage
-            channel_name = url_path_array[2]
+            channel_name = url_path_array[2];
             localStorage.setItem("channel_name", channel_name);
 
             // // Hack - Pull variable name from html content
@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
             scroll();
         }
     });
+
 
     // Form validation
     var forms = document.getElementsByClassName("needs-validation");
