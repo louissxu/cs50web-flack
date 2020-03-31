@@ -33,14 +33,14 @@ class Channel():
     def __init__(self, name):
         self.name = name
         self.messages = []
-        self.pruned = False;
+        self.pruned = False
     def __eq__(self, other):
         return self.name == other.name
     def add_message(self, username, message, date=None, time=None):
         self.messages.append(Message(username,message,date,time))
         while len(self.messages) > 100:
             self.messages.pop(0)
-            self.pruned = True;
+            self.pruned = True
     def previous_messages(self):
         return [{"date": message.date, "time": message.time, "username": message.username, "message": message.message} for message in self.messages]
 
