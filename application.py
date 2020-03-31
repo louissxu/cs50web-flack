@@ -18,9 +18,7 @@ allowed_display_name_characters = string.ascii_letters + string.digits + "_-"
 
 # TODO
 # verify server side validation matches client side
-# index page overlay
 # clean code
-# more formatting of messages
 # refactor classes
 # host on heroku
 # change timeout time?
@@ -78,21 +76,6 @@ channels[0].add_message("Bob", "Awesome! I'll have to check it out.", date=today
 channels[1].add_message("Louis Xu", "Built using Flask and Societ.IO")
 channels[1].add_message("Louis Xu", "For CS50 Web - 2020-03-31")
 channels[1].add_message("Louis Xu", "See github page for full specifications")
-
-# channels[1].add_message("", "")
-# channels[1].add_message("Display Name", "When a user visits your web application for the first time, they should be prompted to type in a display name that will eventually be associated with every message the user sends. If a user closes the page and returns to your app later, the display name should still be remembered.")
-# channels[1].add_message("", "")
-# channels[1].add_message("Channel Creation", "Any user should be able to create a new channel, so long as its name doesn’t conflict with the name of an existing channel.")
-# channels[1].add_message("", "")
-# channels[1].add_message("Channel List", "Users should be able to see a list of all current channels, and selecting one should allow the user to view the channel. We leave it to you to decide how to display such a list.")
-# channels[1].add_message("", "")
-# channels[1].add_message("Messages View", "Once a channel is selected, the user should see any messages that have already been sent in that channel, up to a maximum of 100 messages. Your app should only store the 100 most recent messages per channel in server-side memory.")
-# channels[1].add_message("", "")
-# channels[1].add_message("Sending Messages", "Once in a channel, users should be able to send text messages to others the channel. When a user sends a message, their display name and the timestamp of the message should be associated with the message. All users in the channel should then see the new message (with display name and timestamp) appear on their channel page. Sending and receiving messages should NOT require reloading the page.")
-# channels[1].add_message("", "")
-# channels[1].add_message("Remembering the Channel", "If a user is on a channel page, closes the web browser window, and goes back to your web application, your application should remember what channel the user was on previously and take the user back to that channel.")
-# channels[1].add_message("", "")
-# channels[1].add_message("Notes", "Don't use SQL for the database. Should be stored in temporary server side memory. Refreshes when webserver restarts after inactivity.")
 
 channels[2].add_message("Alice", "Hey guys! I heard a great joke.")
 channels[2].add_message("Bob", "Okay great, what is it?")
