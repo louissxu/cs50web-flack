@@ -17,8 +17,6 @@ Flack
     {%- endraw %}
 </script>
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha256-bQmrZe4yPnQrLTY+1gYylfNMBuGfnT/HKsCGX+9Xuqo=" crossorigin="anonymous"></script>
 <script>var old_messages = {{channel_messages}}</script>
 <script src="/static/index.js"></script>
 {% endblock %}
@@ -32,10 +30,6 @@ Flack
             <input type="text" class="form-control border-bottom-only m-0 pl-1" id="new_display_name" name="new_display_name" placeholder="<display name>" autocomplete="off" required>
             <div class="input-group-append">
                 <button class="btn btn-link" type="submit" id="change_display_name_submit">
-                    {# <span class="fa-stack">
-                        <i class="far fa-circle fa-stack-2x"></i>
-                        <i class="fas fa-check fa-stack-1x"></i>
-                    </span> #}
                     empty
                 </button>
             </div>
@@ -64,10 +58,6 @@ Flack
                 <div class="input-group-append">
                     <button class="btn btn-link" type="submit">
                         create
-                        {# <span class="fa-stack">
-                            <i class="far fa-circle fa-stack-2x"></i>
-                            <i class="fas fa-plus fa-stack-1x"></i>
-                        </span> #}
                     </button>
                 </div>
                 <div class="valid-feedback">
@@ -86,7 +76,6 @@ Flack
     {% if channel_name %}
         <h5 id="channel_name"><strong># {{channel_name}}</strong></h5>
     {% endif %}
-    
 {% endblock %}
 
 {% block body %}
@@ -94,15 +83,10 @@ Flack
         {% if messages_pruned %}
             <li class="text-muted font-italic">More than 100 old messages. Earlier messages have been pruned.</li>
         {% endif %}
-        {# {% for message in channel_messages %}
-            <li>{{message.timestamp}} {{message.username}}: {{message.message}}</li>
-        {% endfor %} #}
     </ul>
 {% endblock %}
 
 {% block bottom %}
-    {# <div data-toggle="popover" data-trigger="focus" title="popover <br />title" data-content="popover <br />content" data-placement="top" data-html="true"> #}
-    {# <div data-toggle="popover" data-trigger="focus" title="New messages below." data-content="" data-placement="top"> #}
     <div id="more_messages_popover" title="New messages below." data-content="" data-placement="top"></div>
     <form id="submit_new_message" class="input-group">
         <div class="input-group">
@@ -114,8 +98,7 @@ Flack
                 </button>
             </div>
         </div>
-    </form>
-    
+    </form> 
 {% endblock %}
 
 {% block overlay %}

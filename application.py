@@ -188,7 +188,3 @@ def message(data):
     time = now.strftime("%H:%M:%S")
 
     emit("announce message", {"message": message, "username": username, "date": date, "time": time, "channel": channel}, broadcast=True)
-
-# @app.route("/test/")
-# def test():
-#     return render_template("test.html.jinja2")

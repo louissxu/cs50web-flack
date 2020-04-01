@@ -23,12 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         previous_channel = localStorage.getItem("channel_name");
         if (previous_channel != null) {
             // Redirect to relative address. Ref: https://www.geeksforgeeks.org/how-to-redirect-to-a-relative-url-in-javascript/
-            window.location.href = "/channel/" + previous_channel;
-
-            // // Have to do it this way rather than url.hostname because this uses nonstandard port
-            // var initial_url_arr = window.location.href.split("/")
-            // var initial_url = initial_url_arr[0] + "//" + initial_url_arr[2]
-            // alert(initial_url + "/channel/" + previous_channel);       
+            window.location.href = "/channel/" + previous_channel;    
         }
     }
     else {
@@ -38,9 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
             // Pull channel_name from url path then set it to local storage
             channel_name = url_path_array[2];
             localStorage.setItem("channel_name", channel_name);
-
-            // // Hack - Pull variable name from html content
-            // const channel_name = document.querySelector("#channel_name").innerHTML
         }
     }
 
@@ -49,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (localStorage.getItem("display_name") != null) {
         display_name = localStorage.getItem("display_name");
         document.querySelector("#display_name").innerHTML = display_name;
-        // document.getElementById("new_display_name").placeholder = "change display name"
         document.getElementById("change_display_name_submit").innerHTML = "change"
         document.getElementById("new_display_name").placeholder = "<change name>"
     }
@@ -59,45 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("new_display_name").placeholder = "<set name>"
         document.getElementById("overlay1").style.visibility = "visible"
     }
-
-    // Connect to websocket
-    var socket = io.connect(location.protocol + "//" + document.domain + ":" + location.port);
-
-    // When connected, configure buttons
-    socket.on("connect", () => {
-        // Submit button should emit a "submit message" event
-        document.querySelector("#submit_new_message").onsubmit = () => {
-            const new_message = document.querySelector("#new_message").value;
-            document.querySelector("#new_message").value = "";
-            socket.emit("submit message", {"message": new_message, "username": display_name, "channel": channel_name});
-            
-            return false;
-        };
-    });
-
-    // When a new message is announced, add it to the unordered list
-    socket.on("announce message", data => {
-        if (data.channel == channel_name){
-            displayMessage(data);
-            scroll();
-        }
-    });
-
-
-    // Form validation
-    var forms = document.getElementsByClassName("needs-validation");
-    // Loop over them and prevent submission
-    var validation = Array.prototype.filter.call(forms, function(form) {
-        form.addEventListener("submit", () => {
-            if (form.checkValidity() === false) {
-                event.preventDefault();
-                event.stopPropagation();
-                form.classList.add("was-validated");
-            } else {
-                form.classList.remove("was-validated");
-            }
-        }, false);
-    });
 
     // Handles change display name form
     document.querySelector("#change_display_name").onsubmit = () => {
@@ -115,12 +67,46 @@ document.addEventListener("DOMContentLoaded", () => {
             if (document.getElementById("overlay1").style.visibility == "visible") {
                 document.getElementById("overlay1").style.visibility = "hidden"
             }
-            
-
             return false;
         }
     }
 
+    // Connect to websocket
+    var socket = io.connect(location.protocol + "//" + document.domain + ":" + location.port);
+
+    // When connected, configure buttons
+    socket.on("connect", () => {
+        // Submit button should emit a "submit message" event
+        document.querySelector("#submit_new_message").onsubmit = () => {
+            const new_message = document.querySelector("#new_message").value;
+            document.querySelector("#new_message").value = "";
+            socket.emit("submit message", {"message": new_message, "username": display_name, "channel": channel_name});
+            return false;
+        };
+    });
+
+    // When a new message is announced, add it to the unordered list
+    socket.on("announce message", data => {
+        if (data.channel == channel_name){
+            displayMessage(data);
+            scroll();
+        }
+    });
+
+    // Form validation
+    var forms = document.getElementsByClassName("needs-validation");
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener("submit", () => {
+            if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+                form.classList.add("was-validated");
+            } else {
+                form.classList.remove("was-validated");
+            }
+        }, false);
+    });
 
     function checkCustomValidity() {
         var input_field = this;
@@ -151,7 +137,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("new_display_name").oninput = checkCustomValidity;
     document.getElementById("new_channel").oninput = checkCustomValidity;
     
-
     // List old messages
     for (const message of old_messages) {
         displayMessage(message);
@@ -159,25 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("middle").onscroll = onScroll;
     scroll()
-
-    // document.getElementById("middle").onscroll = () => {
-    //     console.log("blerp");
-    //     onScroll();
-    // }
-
-    // $(document).ready(function(){
-    //     $('[data-toggle="popover"]').popover();   
-    // });
-
-    // $(function () {
-    //     $('[data-toggle="popover"]').popover()
-    //         html:true
-    // })
-
-    // $('.popover-dismiss').popover({
-    //     trigger: 'focus'
-    // })
-
 })
 
 // Ref: https://stackoverflow.com/questions/11120840/hash-string-into-rgb-color
@@ -221,7 +187,6 @@ function displayMessage(data) {
     document.querySelector("#messages").append(message_li);
 }
 
-
 // Stay scrolled to bottom
 // Ref: https://stackoverflow.com/questions/270612/scroll-to-bottom-of-div?rq=1
 var scrolled = true;
@@ -231,7 +196,6 @@ function scroll() {
         var middle = document.getElementById("middle");
         middle.scrollTop = middle.scrollHeight;
     } else {
-        console.log("you have more messages")
         $("#more_messages_popover").popover('show')
         // Hide popup when click anywhere else
         // Ref. https://stackoverflow.com/questions/11703093/how-to-dismiss-a-twitter-bootstrap-popover-by-clicking-outside

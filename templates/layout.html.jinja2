@@ -11,10 +11,6 @@
         <!-- Our custom stylesheet -->
         <link rel="stylesheet" href="/static/style.css">
 
-        {# <!-- Font Awesome JS -->
-        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script> #}
-
         <!-- Fontawesome icons -->
         <script src="https://kit.fontawesome.com/5eaa8e915c.js" crossorigin="anonymous"></script>
 
@@ -25,13 +21,14 @@
         <!-- Bootstrap JS -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
-
         <!-- Handlebars JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
 
+        <!-- Socket.IO JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha256-bQmrZe4yPnQrLTY+1gYylfNMBuGfnT/HKsCGX+9Xuqo=" crossorigin="anonymous"></script>
+
         {% block head %}
         {% endblock %}
-    
     </head>
 
     <body>
@@ -49,7 +46,6 @@
                             <h3><i class="fas fa-meteor"></i> Flack</h3>
                             <h6 class="pl-1 text-muted">Definitely not a clone of Slack</h6>
                         </div>
-
                         {% block sidebar %}
                         {% endblock %}
                     </nav>
@@ -100,6 +96,6 @@
             {% block overlay %}
             {% endblock %}
         </div>
-        
+
     </body>
 </html>
