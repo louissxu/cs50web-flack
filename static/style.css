@@ -124,11 +124,6 @@ a:hover {
     color: #00a9ea;
 }
 
-.red_border {
-    border: 3px solid red;
-}
-
-
 #messages {
     list-style: none;
 }

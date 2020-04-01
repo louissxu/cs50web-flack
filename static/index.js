@@ -36,6 +36,21 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Form validation
+    var forms = document.getElementsByClassName("needs-validation");
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener("submit", () => {
+            if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+                form.classList.add("was-validated");
+            } else {
+                form.classList.remove("was-validated");
+            }
+        }, false);
+    });
+
     // Sets display name. Pulls from local storage if saved previously
     var display_name = null;
     if (localStorage.getItem("display_name") != null) {
@@ -58,10 +73,12 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("display_name", display_name);
         
             document.querySelector("#display_name").innerHTML = display_name;
-            document.querySelector("#new_display_name").value = "";
         
             document.getElementById("change_display_name_submit").innerHTML = "change";
             document.getElementById("new_display_name").placeholder = "<change name>";
+
+            document.getElementById("new_display_name").classList.remove("was-validated")
+            document.querySelector("#new_display_name").value = "";
 
             // Get rid of startup overlay if present
             if (document.getElementById("overlay1").style.visibility == "visible") {
@@ -91,21 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
             displayMessage(data);
             scroll();
         }
-    });
-
-    // Form validation
-    var forms = document.getElementsByClassName("needs-validation");
-    // Loop over them and prevent submission
-    var validation = Array.prototype.filter.call(forms, function(form) {
-        form.addEventListener("submit", () => {
-            if (form.checkValidity() === false) {
-                event.preventDefault();
-                event.stopPropagation();
-                form.classList.add("was-validated");
-            } else {
-                form.classList.remove("was-validated");
-            }
-        }, false);
     });
 
     function checkCustomValidity() {
