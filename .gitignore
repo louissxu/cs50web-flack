@@ -1,0 +1,10 @@
+/cs50web_env/
+/project1/__pycache__/
+/flask_session/
+.vscode/
+/__pycache__/
+project2/__pycache__/
+/project2/flexbox_layout_1.png
+/project2/flexbox_layout_2.png
+project2/ignore/flexbox_layout_1.png
+project2/ignore/flexbox_layout_2.png
