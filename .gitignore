@@ -2,3 +2,4 @@ ignore/flexbox_layout_1.png
 ignore/flexbox_layout_2.png
 cs50web-flack_env
 __pycache__/
+.vscode
