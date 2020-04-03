@@ -189,5 +189,5 @@ def message(data):
 
     emit("announce message", {"message": message, "username": username, "date": date, "time": time, "channel": channel}, broadcast=True)
 
-if __name__ == '__main__':
-    socketio.run(app)
+# if __name__ == '__main__':
+#     socketio.run(app)
