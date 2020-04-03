@@ -87,8 +87,9 @@ channels[2].add_message("Charles", "I can't believe you fell for that Bob >_<")
 
 @app.route("/")
 def index():
-    # return render_template("index.html.jinja2", channels=[{"name": channel.name, "url": url_for("channel_page", channel_name=channel.name)} for channel in channels])
-    return redirect(url_for("channel_page", channel_name="general"))
+    flash("test","info")
+    return render_template("index.html.jinja2", channels=[{"name": channel.name, "url": url_for("channel_page", channel_name=channel.name)} for channel in channels])
+    # return redirect(url_for("channel_page", channel_name="general"))
 
 @app.route("/channel/<channel_name>/", methods=["GET"])
 def channel_page(channel_name):

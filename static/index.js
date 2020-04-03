@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
     var channel_name;
 
     if (url_pathname == "/"){
+        //If on root page. Make select channel overlay visible
+        document.getElementById("overlay2").style.visibility = "visible"
+
         // Check for flashes and blank out old channel redirect if there are any flashes (ie stay on index page)
         var flashes = document.querySelector(".alert");
         if (flashes != null) {
