@@ -188,3 +188,6 @@ def message(data):
     time = now.strftime("%H:%M:%S")
 
     emit("announce message", {"message": message, "username": username, "date": date, "time": time, "channel": channel}, broadcast=True)
+
+if __name__ == '__main__':
+    socketio.run(app)

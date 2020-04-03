@@ -10,7 +10,7 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "application.py",
+                "FLASK_APP": "app.py",
                 "FLASK_ENV": "development",
                 "FLASK_DEBUG": "1",
                 "SECRET_KEY": "73cb11e64cda84869ea5e8b2f9f1f7f35049d37b29ba7edd3bb859a680caf04f",
