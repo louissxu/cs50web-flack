@@ -1,7 +1,12 @@
 # Flack
 
 A poor clone of Slack. Built with Python, Flask, Socket.io and JS. Hosted on Heroku.\
-Check it out [here.](https://fierce-headland-38432.herokuapp.com/)
+Check it out [here.](https://fierce-headland-38432.herokuapp.com/) Dyno restarts after period of inactivity and loses saved state. State populated on server start with dummy channel names and a little bit of chatter.
+
+As per project hints. No SQL database used. Therefore:
+* Display name and last channel visited stored client side.
+* No verification of display name colision etc done server side.
+* Messages and channel name(s) stored temporarily in server side memory whichg ets reset on restart of flask server.
 
 ### CS50Web - Project 2
 An online messaging service built using flask similar in spirit to Slack.\
@@ -18,10 +23,3 @@ Messages View: Once a channel is selected, the user should see any messages that
     * Autoscroll using JS and prompt when new message appears when not scrolled to bottom using bootstrap popup.
     * Algorithmic display name colour.
     * Custom client-side validation of display name and channel name using JS validation and bootstrap.
-
-As per project hints. No SQL database used. Therefore:
-* Display name and last channel visited stored client side.
-* No verification of display name colision etc done server side.
-* Messages and channel name(s) stored temporarily in server side memory whichg ets reset on restart of flask server.
-
-Hosted on heroku. Dyno restarts after period of inactivity and loses saved state. State populated on server start with dummy channel names and a little bit of chatter.
