@@ -1,7 +1,7 @@
 # Flack
 
-A poor clone of Slack. Built with Python, Flask, Socket.io and JS. Hosted on Heroku.\
-Check it out [here.](https://fierce-headland-38432.herokuapp.com/) Dyno restarts after period of inactivity and loses saved state. State populated on server start with dummy channel names and a little bit of chatter.
+A poor clone of Slack. Built with Python, Flask, Socket.IO and JS. [Hosted on Heroku here.](https://fierce-headland-38432.herokuapp.com/)\
+Dyno restarts after period of inactivity and loses saved state. State populated on server start with dummy channel names and a little bit of chatter.
 
 As per project hints. No SQL database used. Therefore:
 * Display name and last channel visited stored client side.
