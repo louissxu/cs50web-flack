@@ -100,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector("#submit_new_message").onsubmit = () => {
             const new_message = document.querySelector("#new_message").value;
             document.querySelector("#new_message").value = "";
+            scrolled = true;  // Turn on scrolled so you go to bottom of messages when you send a message if you scrolled up
             socket.emit("submit message", {"message": new_message, "username": display_name, "channel": channel_name});
             return false;
         };
