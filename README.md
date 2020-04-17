@@ -5,8 +5,8 @@ Dyno restarts after period of inactivity and loses saved state. State populated 
 
 As per project hints. No SQL database used. Therefore:
 * Display name and last channel visited stored client side.
-* No verification of display name colision etc done server side.
-* Messages and channel name(s) stored temporarily in server side memory whichg ets reset on restart of flask server.
+* No verification of display name collision etc done server side.
+* Messages and channel name(s) stored temporarily in server side memory which gets reset on restart of flask server.
 
 ### CS50Web - Project 2
 An online messaging service built using flask similar in spirit to Slack.\
@@ -20,6 +20,6 @@ Built for CS50 web. See [project requirements.](https://docs.cs50.net/ocw/web/pr
 * **Sending Messages:** Once in a channel, users should be able to send text messages to others the channel. When a user sends a message, their display name and the timestamp of the message should be associated with the message. All users in the channel should then see the new message (with display name and timestamp) appear on their channel page. Sending and receiving messages should NOT require reloading the page.
 * **Remembering the Channel:** If a user is on a channel page, closes the web browser window, and goes back to your web application, your application should remember what channel the user was on previously and take the user back to that channel.
 * **Personal Touch:** Add at least one additional feature to your chat application of your choosing!
-    * Autoscroll using JS and prompt when new message appears when not scrolled to bottom using bootstrap popup.
+    * Auto scroll using JS and prompt when new message appears when not scrolled to bottom using bootstrap popup.
     * Algorithmic display name colour.
     * Custom client-side validation of display name and channel name using JS validation and bootstrap.
