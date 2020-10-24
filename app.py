@@ -73,7 +73,7 @@ channels[0].add_message("Charles", "Did you know you can change your display nam
 channels[0].add_message("Alice", "And make new channels! All in that left sidebar over there.", date=todays_date, time=earlier_time)
 channels[0].add_message("Bob", "Awesome! I'll have to check it out.", date=todays_date, time=earlier_time)
 
-channels[1].add_message("Louis Xu", "Built using Flask and Societ.IO")
+channels[1].add_message("Louis Xu", "Built using Flask and Socket.IO")
 channels[1].add_message("Louis Xu", "For CS50 Web - 2020-03-31")
 channels[1].add_message("Louis Xu", "See github page for full specifications")
 
