@@ -14,7 +14,7 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 socketio = SocketIO(app)
 
 allowed_channel_characters = string.ascii_letters + string.digits + "_-"
-allowed_display_name_characters = string.ascii_letters + string.digits + "_- "
+allowed_display_name_characters = string.ascii_letters + string.digits + "_-"
 
 # TODO
 # verify server side validation matches client side
